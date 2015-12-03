@@ -66,7 +66,8 @@ class PowershellModuleProvider < Chef::Provider
       end
     elsif @new_resource.source =~ URI.regexp # Check for valid URL
       downloaded_file = download_extract_module
-
+      p downloaded_file
+      
       if ::File.exist?(downloaded_file)
         Chef::Log.debug("Powershell Module '#{@powershell_module.package_name}' removing download #{downloaded_file}")
         FileUtils.rm_f(downloaded_file)
@@ -88,7 +89,7 @@ class PowershellModuleProvider < Chef::Provider
   def download_extract_module(download_url = nil, target = nil)
     filename = @new_resource.package_name + '.zip'
 
-    target = ::File.join(Chef::Config[:file_cache_path], filename) if target.nil?
+    target = default_target_path(filename) if target.nil?
     Chef::Log.debug("Powershell Module download target is #{target}")
 
     download_url = @new_resource.source if download_url.nil?
@@ -110,6 +111,10 @@ class PowershellModuleProvider < Chef::Provider
     end
 
     target
+  end
+  
+  def default_target_path(filename)
+    ::File.join(Chef::Config[:file_cache_path], filename)
   end
 
   def module_path_name

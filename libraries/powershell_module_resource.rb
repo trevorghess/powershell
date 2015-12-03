@@ -33,7 +33,7 @@ class PowershellModule < Chef::Resource::Package
     provider(PowershellModuleProvider)
 
     # resource default attributes
-    @destination = "#{ENV['PROGRAMW6432']}/WindowsPowerShell/Modules/"
+    @destination = "#{ENV['PROGRAMW6432']}/WindowsPowerShell/Modules/".gsub(/\\/, '/')
     @source = name
     @enabled = nil
   end
