@@ -15,9 +15,7 @@ describe 'powershell::powershell4' do
       before do
         @windows_version = double(windows_server_2008_r2?: true, windows_7?: false, windows_server_2012?: false)
         allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-        registry = double
-        allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-        allow(registry).to receive(:data_exists?).and_return(true)
+        allow(chef_run).to receive(:registry_data_exists?).and_return(true)
       end
 
       it 'only includes ms_dotnet45 when powershell 4 is installed' do
@@ -29,9 +27,7 @@ describe 'powershell::powershell4' do
       before do
         @windows_version = double(windows_server_2008_r2?: true, windows_7?: false, windows_server_2012?: false)
         allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-        registry = double
-        allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-        allow(registry).to receive(:data_exists?).and_return(false)
+        allow(chef_run).to receive(:registry_data_exists?).and_return(false)
       end
 
       it 'installs windows package windows managemet framework core 4.0 when powershell 4 is not installed' do
@@ -44,9 +40,7 @@ describe 'powershell::powershell4' do
       before do
         @windows_version = double(windows_server_2008_r2?: false, windows_7?: true, windows_server_2012?: false)
         allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-        registry = double
-        allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-        allow(registry).to receive(:data_exists?).and_return(true)
+        allow(chef_run).to receive(:registry_data_exists?).and_return(true)
       end
 
       it 'only includes ms_dotnet45 when powershell 4 is installed' do
@@ -58,9 +52,7 @@ describe 'powershell::powershell4' do
       before do
         @windows_version = double(windows_server_2008_r2?: false, windows_7?: true, windows_server_2012?: false)
         allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-        registry = double
-        allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-        allow(registry).to receive(:data_exists?).and_return(false)
+        allow(chef_run).to receive(:registry_data_exists?).and_return(false)
       end
 
       it 'installs windows package windows managemet framework core 4.0 when powershell 4 is not installed' do
@@ -73,9 +65,7 @@ describe 'powershell::powershell4' do
       before do
         @windows_version = double(windows_server_2008_r2?: false, windows_7?: false, windows_server_2012?: true)
         allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-        registry = double
-        allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-        allow(registry).to receive(:data_exists?).and_return(false)
+        allow(chef_run).to receive(:registry_data_exists?).and_return(false)
       end
 
       it 'installs windows package windows managemet framework core 4.0' do
@@ -97,9 +87,7 @@ describe 'powershell::powershell4' do
       before do
         @windows_version = double(windows_server_2008_r2?: true, windows_7?: false, windows_server_2012?: false)
         allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-        registry = double
-        allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-        allow(registry).to receive(:data_exists?).and_return(true)
+        allow(chef_run).to receive(:registry_data_exists?).and_return(true)
       end
 
       it 'only includes ms_dotnet45 when powershell 4 is installed' do
@@ -111,9 +99,7 @@ describe 'powershell::powershell4' do
       before do
         @windows_version = double(windows_server_2008_r2?: true, windows_7?: false, windows_server_2012?: false)
         allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-        registry = double
-        allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-        allow(registry).to receive(:data_exists?).and_return(false)
+        allow(chef_run).to receive(:registry_data_exists?).and_return(false)
       end
 
       it 'installs windows package windows managemet framework core 4.0 when powershell 4 is not installed' do
@@ -126,9 +112,7 @@ describe 'powershell::powershell4' do
       before do
         @windows_version = double(windows_server_2008_r2?: false, windows_7?: true, windows_server_2012?: false)
         allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-        registry = double
-        allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-        allow(registry).to receive(:data_exists?).and_return(true)
+        allow(chef_run).to receive(:registry_data_exists?).and_return(true)
       end
 
       it 'only includes ms_dotnet45 when powershell 4 is installed' do
@@ -140,9 +124,7 @@ describe 'powershell::powershell4' do
       before do
         @windows_version = double(windows_server_2008_r2?: false, windows_7?: true, windows_server_2012?: false)
         allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-        registry = double
-        allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-        allow(registry).to receive(:data_exists?).and_return(false)
+        allow(chef_run).to receive(:registry_data_exists?).and_return(false)
       end
 
       it 'installs windows package windows managemet framework core 4.0 when powershell 4 is not installed' do
@@ -155,9 +137,7 @@ describe 'powershell::powershell4' do
       before do
         @windows_version = double(windows_server_2008_r2?: false, windows_7?: false, windows_server_2012?: true)
         allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-        registry = double
-        allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-        allow(registry).to receive(:data_exists?).and_return(false)
+        allow(chef_run).to receive(:registry_data_exists?).and_return(false)
       end
 
       it 'installs windows package windows managemet framework core 4.0' do
@@ -179,9 +159,7 @@ describe 'powershell::powershell4' do
       before do
         @windows_version = double(windows_server_2008_r2?: true, windows_7?: false, windows_server_2012?: false)
         allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-        registry = double
-        allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-        allow(registry).to receive(:data_exists?).and_return(true)
+        allow(chef_run).to receive(:registry_data_exists?).and_return(true)
       end
 
       it 'only includes ms_dotnet45 when powershell 4 is installed' do
@@ -193,9 +171,7 @@ describe 'powershell::powershell4' do
       before do
         @windows_version = double(windows_server_2008_r2?: true, windows_7?: false, windows_server_2012?: false)
         allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-        registry = double
-        allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-        allow(registry).to receive(:data_exists?).and_return(false)
+        allow(chef_run).to receive(:registry_data_exists?).and_return(false)
       end
 
       it 'installs windows package windows managemet framework core 4.0 when powershell 4 is not installed' do
@@ -208,9 +184,7 @@ describe 'powershell::powershell4' do
       before do
         @windows_version = double(windows_server_2008_r2?: false, windows_7?: true, windows_server_2012?: false)
         allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-        registry = double
-        allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-        allow(registry).to receive(:data_exists?).and_return(true)
+        allow(chef_run).to receive(:registry_data_exists?).and_return(true)
       end
 
       it 'only includes ms_dotnet45 when powershell 4 is installed' do
@@ -222,9 +196,7 @@ describe 'powershell::powershell4' do
       before do
         @windows_version = double(windows_server_2008_r2?: false, windows_7?: true, windows_server_2012?: false)
         allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-        registry = double
-        allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-        allow(registry).to receive(:data_exists?).and_return(false)
+        allow(chef_run).to receive(:registry_data_exists?).and_return(false)
       end
 
       it 'installs windows package windows managemet framework core 4.0 when powershell 4 is not installed' do
@@ -237,9 +209,7 @@ describe 'powershell::powershell4' do
       before do
         @windows_version = double(windows_server_2008_r2?: false, windows_7?: false, windows_server_2012?: true)
         allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-        registry = double
-        allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-        allow(registry).to receive(:data_exists?).and_return(false)
+        allow(chef_run).to receive(:registry_data_exists?).and_return(false)
       end
 
       it 'installs windows package windows managemet framework core 4.0' do

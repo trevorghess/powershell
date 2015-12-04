@@ -17,9 +17,7 @@ describe 'powershell::powershell5' do
     before do
       @windows_version = double(windows_server_2012_r2?: true, windows_8_1?: false)
       allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-      registry = double
-      allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-      allow(registry).to receive(:data_exists?).and_return(false)
+      allow(chef_run).to receive(:registry_data_exists?).and_return(false)
     end
 
     it 'installs windows package windows managemet framework core 5.0 if powershell 5 not installed' do
@@ -31,9 +29,7 @@ describe 'powershell::powershell5' do
     before do
       @windows_version = double(windows_server_2012_r2?: false, windows_8_1?: true)
       allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-      registry = double
-      allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-      allow(registry).to receive(:data_exists?).and_return(false)
+      allow(chef_run).to receive(:registry_data_exists?).and_return(false)
     end
 
     it 'installs windows package windows managemet framework core 5.0 if powershell not installed' do

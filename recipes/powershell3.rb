@@ -32,14 +32,6 @@ when 'windows'
     # For Windows Server 2008 ensure that Powershell 2 is already installed and so is BITS 4.0
     if windows_version.windows_server_2008?
       include_recipe 'powershell::powershell2'
-
-      windows_package 'Windows Management Framework Bits' do
-        source node['powershell']['bits_4']['url']
-        checksum node['powershell']['bits_4']['checksum']
-        installer_type :custom
-        options '/quiet /norestart'
-        action :install
-      end
     end
 
     # WMF 3.0 requires .NET 4.0
