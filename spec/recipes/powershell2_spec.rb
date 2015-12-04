@@ -68,25 +68,14 @@ describe 'powershell::powershell2' do
       registry = double
       allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
       allow(registry).to receive(:data_exists?).and_return(false)
+      allow(registry).to receive(:key_exists?).and_return(false)
+      allow(registry).to receive(:value_exists?).and_return(false)
+      allow(chef_run).to receive(:reboot_pending?).and_return(false)
     end
 
     it 'installs windows package when powershell2 doesnot exist' do
       expect(chef_run).to include_recipe('ms_dotnet2')
       expect(chef_run).to install_windows_package('Windows Management Framework Core').with(source: 'https://powershelltest.com', checksum: '12345', installer_type: :custom, options: '/quiet /norestart')
-    end
-  end
-
-  context 'when windows_version is windows_server_2008' do
-    before do
-      @windows_version = double(windows_server_2008?: true, windows_server_2003_r2?: false, windows_server_2003?: false, windows_xp?: false, windows_server_2008_r2?: false, windows_7?: false, core?: false, windows_server_2012?: false, windows_8?: false)
-      allow(Chef::ReservedNames::Win32::Version).to receive(:new).and_return(@windows_version)
-      registry = double
-      allow(Chef::Win32::Registry).to receive(:new).and_return(registry)
-      allow(registry).to receive(:data_exists?).and_return(true)
-    end
-
-    it 'only includes ms_dotnet2 when powershell2 exist' do
-      expect(chef_run).to include_recipe('ms_dotnet2')
     end
   end
 end
