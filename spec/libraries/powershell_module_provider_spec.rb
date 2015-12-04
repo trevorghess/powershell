@@ -200,7 +200,7 @@ describe 'PowershellModuleProvider' do
       it 'downloads module from source and install' do
         @new_resource.source('https://testmodule.com')
         expect(@provider).to receive(:download_extract_module).and_return('C:/tmp/testmodule.zip')
-        expect(::File).to receive(:exists?).with('c:/tmp/testmodule.zip').and_return(true)
+        expect(File).to receive(:exist?).with('C:/tmp/testmodule.zip').and_return(true)
         expect(FileUtils).to receive(:rm_f).with('C:/tmp/testmodule.zip')
         @provider.send(:install_module)
       end

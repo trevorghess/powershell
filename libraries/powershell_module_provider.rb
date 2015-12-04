@@ -66,8 +66,7 @@ class PowershellModuleProvider < Chef::Provider
       end
     elsif @new_resource.source =~ URI.regexp # Check for valid URL
       downloaded_file = download_extract_module
-      p downloaded_file
-      
+
       if ::File.exist?(downloaded_file)
         Chef::Log.debug("Powershell Module '#{@powershell_module.package_name}' removing download #{downloaded_file}")
         FileUtils.rm_f(downloaded_file)
@@ -112,7 +111,7 @@ class PowershellModuleProvider < Chef::Provider
 
     target
   end
-  
+
   def default_target_path(filename)
     ::File.join(Chef::Config[:file_cache_path], filename)
   end
