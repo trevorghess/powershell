@@ -25,12 +25,12 @@ case node['platform']
 when 'windows'
 
   # Handle WMFC install on 2012R2 and 8.1 only (yet)
-  if ::Windows::VersionHelper.nt_version(node) == 6.3
+  if ::Windows::VersionHelper.nt_version(node) >= 6.1
     include_recipe 'powershell::powershell2'
 
     include_recipe 'powershell::windows_reboot' unless node['powershell']['installation_reboot_mode'] == 'no_reboot'
 
-    windows_package 'Windows Management Framework Core 5.0' do # ~FC009
+    windows_package 'Windows Management Framework 5.0 Production Preview' do # ~FC009
       source node['powershell']['powershell5']['url']
       checksum node['powershell']['powershell5']['checksum']
       installer_type :custom
