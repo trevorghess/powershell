@@ -23,30 +23,9 @@ Not every version of Windows supports every version of Powershell. The following
     <th>PowerShell 5.0</th>
   </tr>
   <tr>
-    <td>Windows XP</td>
-    <td>Supported</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Windows Server 2003 / 2003 R2</td>
-    <td>Supported</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Windows Server 2008 / Vista</td>
-    <td>Supported</td>
-    <td>Supported</td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
     <td>Windows Server 2008 R2</td>
-    <td>Supported</td>
     <td>Included</td>
+    <td>Supported</td>
     <td>Supported</td>
     <td></td>
   </tr>
@@ -63,7 +42,14 @@ Not every version of Windows supports every version of Powershell. The following
     <td></td>
     <td>Included</td>
     <td>Supported</td>
-  </tr> 
+  </tr>
+  <tr>
+    <td>Windows Server 2016 TP4 / Windows 10</td>
+    <td></td>
+    <td></td>
+    <td>/td>
+    <td>Included</td>
+  </tr>
 </table>
 
 ### Cookbooks
@@ -76,96 +62,6 @@ PowerShell also requires the appropriate version of the Microsoft .NET Framework
 
 Resource/Provider
 -----------------
-
-**Note**: In Chef 11, use the built-in [powershell_script](http://docs.chef.io/resource_powershell_script.html) resource.
-
-### `powershell`
-
-Execute a script using the PowerShell interpreter (much like the script resources for bash, csh, perl, python and ruby). A temporary file is created and executed like other script resources, rather than run inline. By their nature, Script resources are not idempotent, as they are completely up to the user's imagination. Use the `not_if` or `only_if` meta parameters to guard the resource for idempotence.
-
-#### Actions
-
-- :run: run the script
-
-#### Attribute Parameters
-
-- `command`: name attribute. Name of the command to execute.
-- `code`: quoted string of code to execute.
-- `creates`: a file this command creates - if the file exists, the command will not be run.
-- `cwd`: current working directory to run the command from.
-- `flags`: command line flags to pass to the interpreter when invoking.
-- `environment`: A hash of environment variables to set before running this command.
-- `user`: A user name or user ID that we should change to before running this command.
-- `group`: A group name or group ID that we should change to before running this command.
-- `returns`: The return value of the command (may be an array of accepted values). This resource raises an exception if the return value(s) do not match.
-- `timeout`: How many seconds to let the command run before timing it out.
-
-#### Examples
-
-```ruby
-# change the computer's hostname
-powershell "rename hostname" do
-  code <<-EOH
-  $computer_name = Get-Content env:computername
-  $new_name = 'test-hostname'
-  $sysInfo = Get-WmiObject -Class Win32_ComputerSystem
-  $sysInfo.Rename($new_name)
-  EOH
-end
-```
-
-```ruby
-# write out to an interpolated path
-powershell "write-to-interpolated-path" do
-  code <<-EOH
-  $stream = [System.IO.StreamWriter] "#{Chef::Config[:file_cache_path]}/powershell-test.txt"
-  $stream.WriteLine("In #{Chef::Config[:file_cache_path]}...word.")
-  $stream.close()
-  EOH
-end
-```
-
-```ruby
-# use the change working directory attribute
-powershell "cwd-then-write" do
-  cwd Chef::Config[:file_cache_path]
-  code <<-EOH
-  $stream = [System.IO.StreamWriter] "C:/powershell-test2.txt"
-  $pwd = pwd
-  $stream.WriteLine("This is the contents of: $pwd")
-  $dirs = dir
-  foreach ($dir in $dirs) {
-    $stream.WriteLine($dir.fullname)
-  }
-  $stream.close()
-  EOH
-end
-```
-
-```ruby
-# cwd to a winodws env variable
-powershell "cwd-to-win-env-var" do
-  cwd ENV['TEMP']
-  code <<-EOH
-  $stream = [System.IO.StreamWriter] "./temp-write-from-chef.txt"
-  $stream.WriteLine("chef on windows rox yo!")
-  $stream.close()
-  EOH
-end
-```
-
-```ruby
-# pass an env var to script
-powershell "read-env-var" do
-  cwd Chef::Config[:file_cache_path]
-  environment ({'foo' => 'BAZ'})
-  code <<-EOH
-  $stream = [System.IO.StreamWriter] "./test-read-env-var.txt"
-  $stream.WriteLine("FOO is $env:foo")
-  $stream.close()
-  EOH
-end
-```
 
 ### `powershell_module`
 
@@ -216,14 +112,9 @@ end
 ```ruby
 # Install without using 'source' attribute
 powershell_module "https://github.com/dahlbyk/posh-git/zipball/master" do
-  package_name "posh-git"  
+  package_name "posh-git"
 end
 ```
-
-Mixin
------
-
-The `Chef::Mixin::PowershellOut` mixin has been moved to the [windows](http://ckbk.it/windows) cookbook.
 
 Usage
 -----
